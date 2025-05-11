@@ -7,95 +7,94 @@
   <style>
     body {
       margin: 0;
-      min-height: 100vh;
+      height: 100vh;
       background-image: url('bg_lagu.png');
-      background-size: cover; /* Biar selalu penuh layar */
+      background-size: cover; /* full screen */
       background-position: center;
       background-repeat: no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-}
-
+    }
 
     .quote-box {
       color: white;
       text-align: center;
       overflow: hidden;
-    }
-
-    .quote-box::before {
-      content: "";
-      font-size: 100px;
-      position: absolute;
-      top: 5px;
-      left: 20px;
-      color: rgba(0, 0, 0, 0.9);
-    }
-
-    .quote-box::after {
-      content: "";
-      font-size: 100px;
-      position: absolute;
-      top: 50px;
-      left: 610px;
-      color: rgba(0, 0, 0, 0.9);
+      padding: 20px;
     }
 
     .quote-text {
-      font-size: 40px;
+      font-size: 6vw; /* responsive font */
       line-height: 1.6;
       font-style: italic;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
       opacity: 0;
       transition: opacity 1s ease-in-out;
     }
+
+    .play-btn {
+      background: rgba(0,0,0,0.6);
+      color: white;
+      font-size: 5vw;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
   <div class="quote-box">
-    <div class="quote-text" id="quote">Lirik pertama</div>
+    <div class="quote-text" id="quote">Tekan Play untuk mulai 🎶</div>
+    <button class="play-btn" id="playBtn">▶️ Play Lagu</button>
   </div>
 
-<!-- Player lagu -->
-  <audio id="audio" autoplay>
+  <audio id="audio">
     <source src="tak_perlu.mp3" type="audio/mpeg">
     Browser kamu tidak mendukung audio.
   </audio>
 
   <script>
     const quotes = [
-      { text: " ", duration: 2000 }, // 2 detik
-      { text: "tak perlu tunggu hebat", duration: 2000 }, // 4 detik
-      { text: "untuk berani memulai apa yang kau impikan", duration: 2500 }, // 3 detik
-      { text: "hanya perlu memulai", duration: 2000 }, // 5 detik
-      { text: "untuk menjadi hebat raih yang kau impikan", duration: 2000 }, // 2 detik
-      { text: "seperti singa yang menerjang semua rintangan", duration: 4000 }, // 2 detik
-      { text: "tanpa rasa takut", duration: 2500 }, // 2 detik
-      { text: "yakini bahwa, kamu kamu kamu kamu", duration: 4000 }, // 2 detik
-      { text: "terhebat!!!", duration: 2000 } // 2 detik
+      { text: " ", duration: 2000 },
+      { text: "tak perlu tunggu hebat", duration: 2000 },
+      { text: "untuk berani memulai apa yang kau impikan", duration: 2500 },
+      { text: "hanya perlu memulai", duration: 2000 },
+      { text: "untuk menjadi hebat raih yang kau impikan", duration: 2000 },
+      { text: "seperti singa yang menerjang semua rintangan", duration: 4000 },
+      { text: "tanpa rasa takut", duration: 2500 },
+      { text: "yakini bahwa, kamu kamu kamu kamu", duration: 4000 },
+      { text: "terhebat!!!", duration: 2000 }
     ];
 
     let index = 0;
     const quoteEl = document.getElementById('quote');
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('playBtn');
 
     function showQuote() {
       const current = quotes[index];
       quoteEl.textContent = current.text;
-      quoteEl.style.opacity = 1; // fade in
+      quoteEl.style.opacity = 1;
 
       setTimeout(() => {
-        quoteEl.style.opacity = 0; // fade out
+        quoteEl.style.opacity = 0;
         setTimeout(() => {
           index = (index + 1) % quotes.length;
           showQuote();
-        }, 990); // waktu fade out (1 detik)
-      }, current.duration); // waktu tampil per lirik
+        }, 990);
+      }, current.duration);
     }
 
-    showQuote();
+    playBtn.addEventListener('click', () => {
+      audio.play();
+      playBtn.style.display = 'none'; // sembunyikan tombol
+      showQuote();
+    });
   </script>
 
 </body>
