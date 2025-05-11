@@ -5,46 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lirik Lagu Animasi</title>
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background-image: url('bg_lagu.png');
-      background-size: cover; /* full screen */
-      background-position: center;
-      background-repeat: no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-image: url('bg_lagu.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+  }
 
-    .quote-box {
-      color: white;
-      text-align: center;
-      overflow: hidden;
-      padding: 20px;
-    }
+  .quote-box {
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    max-width: 80%;
+  }
 
+  .quote-text {
+    font-size: 2vw; /* kecil di laptop */
+    line-height: 1.5;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .play-btn {
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 2vw;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  /* khusus buat HP ukuran kecil */
+  @media (max-width: 600px) {
     .quote-text {
-      font-size: 6vw; /* responsive font */
-      line-height: 1.6;
-      font-style: italic;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
+      font-size: 6vw; /* gede di HP */
     }
-
     .play-btn {
-      background: rgba(0,0,0,0.6);
-      color: white;
       font-size: 5vw;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      cursor: pointer;
     }
-  </style>
+  }
+</style>
+
 </head>
 <body>
 
@@ -92,7 +106,7 @@
 
     playBtn.addEventListener('click', () => {
       audio.play();
-      playBtn.style.display = 'none'; // sembunyikan tombol
+      playBtn.style.display = 'none';
       showQuote();
     });
   </script>
